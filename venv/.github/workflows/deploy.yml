@@ -1,0 +1,37 @@
+name: Deploy FastAPI App to Render
+
+on:
+  push:
+    branches:
+      - main  # Trigger deployment when pushing to the main branch
+  workflow_dispatch:  # Allows for manual triggering from GitHub UI
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code from the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'  # You can change the Python version here if necessary
+
+      # Step 3: Install dependencies (optional if needed)
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      # Step 4: Deploy to Render (use your Render API Key)
+      - name: Deploy to Render
+        run: |
+          curl -X POST \
+"
+            "https://api.render.com/deploy/srv-<your-service-id>?key=rnd_puKHOMYPmrdhNr5utHwAoSjuhQSA
+"
